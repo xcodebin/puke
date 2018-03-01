@@ -7,9 +7,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/name', function (req, res) {
-	console.log(req.body);
-	router.names = req.body.name;
-	res.send({state: 'success'});
+	res.send({state: 'success', name: req.body.name});
 });
 
 module.exports = router;

@@ -12,7 +12,6 @@ var servers = require('http').Server(app);
 var io = require('socket.io')(servers);
 
 servers.listen(8866);
-var name = null;
 io.on('connection', function (socket) {
 	console.info('a connecter connected');
 	socket.emit('to custom', {hello: 'world'});
@@ -20,7 +19,7 @@ io.on('connection', function (socket) {
 		console.log('Toserver', data);
 	});
 	socket.on('sendChat', function (data) {
-		name = index.names;
+		var name = data.name;
 		if (name) {
 			io.emit('addChat', {text: name + '说:' + data.content});
 		}

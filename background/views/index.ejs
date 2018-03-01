@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<p class="t-c">Welcome to chat <span id="title" class="text-success"></span></p>
+<p class="t-c">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></p>
 <small>第一步，发送自己的名称到服务器</small>
 <small>第二步，开始发消息</small>
 <div id="chatView" class="chatView"></div>
@@ -68,7 +68,7 @@
 		})
 	})
 	$("#testsocketBtn").on("click", function () {
-		socket.emit('sendChat', {content: $("#testsocket").val()});
+		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
 	})
 	socket.on('addChat', function (data) {
 		console.log(data);
