@@ -3,13 +3,78 @@
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
 </head>
 <body>
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<input type="text" id="test">
-<Button>
-    socket测试按钮
-</Button>
+<p class="t-c">Welcome to chat <span id="title" class="text-success"></span></p>
+<small>第一步，发送自己的名称到服务器</small>
+<small>第二步，开始发消息</small>
+<div id="chatView" class="chatView"></div>
+<div id="name">
+    <div class="input-group">
+        <input class="form-control" type="text" id="testpost">
+        <span class="input-group-btn">
+        <button type="button" class="btn btn-default" id="testpostBtn" title="post测试按钮">发送名字</button>
+      </span>
+    </div>
+</div>
+
+<div id="message">
+    <div class="input-group">
+        <input class="form-control" type="text" id="testsocket">
+        <span class="input-group-btn">
+       <button type="button" class="btn btn-default" id="testsocketBtn" title="socket测试按钮">发送消息</button>
+      </span>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script>
+	$("#message").hide();
+	var socket = io.connect('http://localhost:8866');//socket test
+	socket.on('to custom', function (data) {
+		socket.emit('to server', {my: 'data'});
+	});
+	$("#testpostBtn").on("click", function () {
+		var name = $("#testpost").val();
+		$.ajax({
+			type: 'POST',
+			url: 'http://localhost:3000/name',
+			data: {name: name},
+			dataType: 'JSON'
+		}).then(function (res) {
+			if (res.state == 'success') {
+				$("#name").hide();
+				$("#message").show();
+				$("#title").html($("#testpost").val());
+				alert('设置成功');
+			} else {
+				alert('失败')
+			}
+		})
+	})
+	$("#testsocketBtn").on("click", function () {
+		socket.emit('sendChat', {content: $("#testsocket").val()});
+	})
+	socket.on('addChat', function (data) {
+		console.log(data);
+		var dom = $("<p></p>").text(data.text);
+		$("#chatView").append(dom)
+	});
+</script>
 </body>
 </html>

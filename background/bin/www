@@ -26,7 +26,6 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-open("http://localhost:" + port, "chrome");
 
 server.on('error', onError);
 server.on('listening', onListening);
@@ -89,4 +88,5 @@ function onListening() {
 		? 'pipe ' + addr
 		: 'port ' + addr.port;
 	debug('Listening on ' + bind);
+	// open("http://localhost:" + port, "chrome");
 }

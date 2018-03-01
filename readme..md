@@ -7,3 +7,9 @@ server side designed by [Node.js](https://github.com/nodejscn/node-api-cn)
 使用 socket.io 进行客户端与服务端之间的通讯
 
 use socket.io to communicate between client side and server side.
+
+npm install supervisor -g
+cd background
+npm install
+npm start
+打开浏览器 localhost:3000
