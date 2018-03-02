@@ -5,11 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+var index = require('./routes/index'); //正常的post请求以及后台管理页面路由
 var cors = require('cors');
 var app = express();
-app.use(cors());
-var servers = require('http').Server(app);
+app.use(cors());//配置跨域
+
+var config = require('./public/tools/config');
+var cards = require('./model/card');
+var clisent = require("redis"), redis = clisent.createClient(config.redis.port, config.redis.host, config.redis.opts); //链接redis
+
+var savemsg = require('./public/tools/savemsg');//链接mysql
+
+var servers = require('http').Server(app);//启动后台websocket服务器
 var io = require('socket.io')(servers);
 
 servers.listen(8866);
