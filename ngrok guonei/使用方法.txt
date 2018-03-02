@@ -1,0 +1,23 @@
+教程网址 http://www.qydev.com
+
+
+●windows用户:
+1,下载windows版本的客户端，解压到你喜欢的目录
+2,在命令行下进入到path/to/windows_386/下
+3,执行 ngrok -config=ngrok.cfg -subdomain xcodebin 3000 //(express服务器)
+3,执行 ngrok -config=ngrok.cfg -subdomain xcodebins 8866 //(websocket服务器)
+4,如果开启成功 你就可以使用 xcodebin.tunnel.qydev.com 来访问你本机的 127.0.0.1:3000 的服务啦
+5,如果失败 就加下交流群 反馈下问题 本屌会看看什么原因....吧
+●linux用户:
+只在ubuntu14.04 amd64 下测试没有问题
+1,下载linux版本的客户端，解压到你喜欢的目录,注意：要给ngrok文件的可执行权限
+2,在命令行下进入到path/to/linux_amd64/下
+3,执行 ./ngrok -config=ngrok.cfg -subdomain xxx 80 //(xxx 是你自定义的域名前缀)
+4,如果开启成功 你就可以使用 xxx.tunnel.qydev.com 来访问你本机的 127.0.0.1:80 的服务啦
+5,如果失败 就加下交流群 反馈下问题 本屌会看看什么原因....吧
+●Mac 用户:
+1,呃,虽然提供了mac版的客户端，但是本屌
+2,没有Mac
+3,没有Mac
+4,没有Mac(重要的事情要说3遍)
+5,所以你下载了之后 自己琢磨吧(应该和linux的使用一样....吧).......
