@@ -16,7 +16,7 @@
 <p class="t-c">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></p>
 <small>第一步，发送自己的名称到服务器</small>
 <small>第二步，开始发消息</small>
-<div id="chatView" class="chatView"></div>
+
 <div id="name">
     <div class="input-group">
         <input class="form-control" type="text" id="testpost">
@@ -27,6 +27,7 @@
 </div>
 
 <div id="message">
+    <div id="chatView" class="chatView"></div>
     <div class="input-group">
         <input class="form-control" type="text" id="testsocket">
         <span class="input-group-btn">
@@ -45,7 +46,7 @@
         crossorigin="anonymous"></script>
 <script>
 	$("#message").hide();
-	var socket = io.connect('http://localhost:8866');//socket test
+	var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
 	socket.on('to custom', function (data) {
 		socket.emit('to server', {my: 'data'});
 	});
@@ -53,7 +54,7 @@
 		var name = $("#testpost").val();
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:3000/name',
+			url: 'http://xcodebin.tunnel.qydev.com/name',
 			data: {name: name},
 			dataType: 'JSON'
 		}).then(function (res) {
