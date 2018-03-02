@@ -1,3 +1,7 @@
+html, body {
+    height: 100%
+}
+
 body {
     padding: 10px 20px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -5,6 +9,13 @@ body {
 
 a {
     color: #00B7FF;
+}
+
+.bg {
+    background-image: url('http://b.hiphotos.baidu.com/zhidao/pic/item/3bf33a87e950352a9f8914975143fbf2b3118b40.jpg');
+    background-repeat: no-repeat;
+    /*background-position: 10% 10%;*/
+    background-size: 100% 100%;
 }
 
 .t-c {
@@ -15,6 +26,11 @@ a {
     text-align: right;
 }
 
+.title {
+    padding-top: 40px;
+    color: #ffffff
+}
+
 .chatView {
     margin: 10px 0;
     border: 1px solid #62ff3a;
@@ -22,4 +38,6 @@ a {
     padding: 0 20px;
     height: 300px;
     overflow: auto;
+    opacity: 0.7;
+    background-color: #ffffff;
 }
