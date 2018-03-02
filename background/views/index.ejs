@@ -14,27 +14,28 @@
 </head>
 <body>
 <p class="t-c">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></p>
-<small>第一步，发送自己的名称到服务器</small>
-<small>第二步，开始发消息</small>
 
-<div id="name">
-    <div class="input-group">
-        <input class="form-control" type="text" id="testpost">
-        <span class="input-group-btn">
-        <button type="button" class="btn btn-default" id="testpostBtn" title="post测试按钮">发送名字</button>
-      </span>
+<div class="jumbotron">
+    <div class="container">
+        <div id="name">
+            <div class="input-group">
+                <input class="form-control" type="text" id="testpost">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-info" id="testpostBtn" title="post测试按钮">请告诉大家你是谁</button>
+                </span>
+            </div>
+        </div>
+
+        <div id="message">
+            <div id="chatView" class="chatView"></div>
+            <div class="input-group">
+                <input class="form-control" type="text" id="testsocket">
+                <span class="input-group-btn">
+                   <button type="button" class="btn btn-default" id="testsocketBtn" title="socket测试按钮">发送消息</button>
+                </span>
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="message">
-    <div id="chatView" class="chatView"></div>
-    <div class="input-group">
-        <input class="form-control" type="text" id="testsocket">
-        <span class="input-group-btn">
-       <button type="button" class="btn btn-default" id="testsocketBtn" title="socket测试按钮">发送消息</button>
-      </span>
-    </div>
-
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
@@ -48,6 +49,10 @@
 	var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
 	function postNameMsg() {
 		var name = $("#testpost").val();
+		if (!name) {
+			alert('请输入名字');
+			return;
+		}
 		$.ajax({
 			type: 'POST',
 			url: 'http://xcodebin.tunnel.qydev.com/name',
