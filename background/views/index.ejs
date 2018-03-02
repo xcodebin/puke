@@ -12,18 +12,19 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 </head>
-<body>
-<p class="t-c">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></p>
+<body class="bg-success">
+<h1 class="t-c page-header">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></h1>
 
 <div class="jumbotron">
     <div class="container">
-        <div id="name">
-            <div class="input-group">
-                <input class="form-control" type="text" id="testpost">
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-info" id="testpostBtn" title="post测试按钮">请告诉大家你是谁</button>
-                </span>
-            </div>
+        <div class="t-c" id="name">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input class="form-control" type="text" id="testpost" placeholder="请告诉大家你是谁">
+                </div>
+                <button type="button" class="btn btn-info" id="testpostBtn" title="post测试按钮">确定
+                </button>
+            </form>
         </div>
 
         <div id="message">
@@ -40,11 +41,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
 <script>
 	var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
 	function postNameMsg() {
@@ -68,10 +64,10 @@
 				alert('失败')
 			}
 		})
-	};
+	}
 	function sendMsg() {
 		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
-	};
+	}
 	$(function () {
 		$("#message").hide();
 		$("#testpost").keydown(function () {
