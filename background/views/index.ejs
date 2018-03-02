@@ -50,7 +50,7 @@
 	socket.on('to custom', function (data) {
 		socket.emit('to server', {my: 'data'});
 	});
-	$("#testpostBtn").on("click", function () {
+	function postNameMsg() {
 		var name = $("#testpost").val();
 		$.ajax({
 			type: 'POST',
@@ -67,10 +67,22 @@
 				alert('失败')
 			}
 		})
-	})
-	$("#testsocketBtn").on("click", function () {
+	};
+	function sendMsg() {
 		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
-	})
+	};
+	$("#testpost").keydown(function () {
+		if (event.keyCode == 13) {
+			postNameMsg();
+		}
+	});
+	$("#testsocket").keydown(function () {
+		if (event.keyCode == 13) {
+			sendMsg();
+		}
+	});
+	$("#testpostBtn").on("click", postNameMsg);
+	$("#testsocketBtn").on("click", sendMsg);
 	socket.on('addChat', function (data) {
 		console.log(data);
 		var dom = $("<p></p>").text(data.text);
