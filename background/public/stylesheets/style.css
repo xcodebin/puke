@@ -12,7 +12,7 @@ a {
 }
 
 .bg {
-    background-image: url('http://b.hiphotos.baidu.com/zhidao/pic/item/3bf33a87e950352a9f8914975143fbf2b3118b40.jpg');
+    background-image: url('./bg.jpg');
     background-repeat: no-repeat;
     /*background-position: 10% 10%;*/
     background-size: 100% 100%;
