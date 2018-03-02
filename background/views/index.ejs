@@ -45,11 +45,7 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script>
-	$("#message").hide();
 	var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
-	socket.on('to custom', function (data) {
-		socket.emit('to server', {my: 'data'});
-	});
 	function postNameMsg() {
 		var name = $("#testpost").val();
 		$.ajax({
@@ -71,22 +67,28 @@
 	function sendMsg() {
 		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
 	};
-	$("#testpost").keydown(function () {
-		if (event.keyCode == 13) {
-			postNameMsg();
-		}
-	});
-	$("#testsocket").keydown(function () {
-		if (event.keyCode == 13) {
-			sendMsg();
-		}
-	});
-	$("#testpostBtn").on("click", postNameMsg);
-	$("#testsocketBtn").on("click", sendMsg);
-	socket.on('addChat', function (data) {
-		console.log(data);
-		var dom = $("<p></p>").text(data.text);
-		$("#chatView").append(dom)
+	$(function () {
+		$("#message").hide();
+		$("#testpost").keydown(function () {
+			if (event.keyCode == 13) {
+				postNameMsg();
+			}
+		});
+		$("#testsocket").keydown(function () {
+			if (event.keyCode == 13) {
+				sendMsg();
+			}
+		});
+		$("#testpostBtn").on("click", postNameMsg);
+		$("#testsocketBtn").on("click", sendMsg);
+		socket.on('to custom', function (data) {
+			socket.emit('to server', {my: 'data'});
+		});
+		socket.on('addChat', function (data) {
+			console.log(data);
+			var dom = $("<p></p>").text(data.text);
+			$("#chatView").append(dom)
+		});
 	});
 </script>
 </body>
