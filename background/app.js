@@ -22,7 +22,7 @@ io.on('connection', function (socket) {
 	socket.on('sendChat', function (data) {
 		var name = data.name;
 		if (name) {
-			io.emit('addChat', {text: name + '说:' + data.content});
+			io.emit('addChat', {name: name, text: name + '说:' + data.content});
 		}
 	});
 });

@@ -18,13 +18,13 @@
 <div class="jumbotron">
     <div class="container">
         <div class="t-c" id="name">
-            <form class="form-inline">
+            <div class="form-inline">
                 <div class="form-group">
                     <input class="form-control" type="text" id="testpost" placeholder="请告诉大家你是谁">
                 </div>
-                <button type="button" class="btn btn-info" id="testpostBtn" title="post测试按钮">确定
+                <button type="submit" class="btn btn-info" id="testpostBtn" title="post测试按钮">确定
                 </button>
-            </form>
+            </div>
         </div>
 
         <div id="message">
@@ -58,6 +58,7 @@
 			if (res.state == 'success') {
 				$("#name").hide();
 				$("#message").show();
+				$("#testsocket").focus();
 				$("#title").html($("#testpost").val());
 				alert('设置成功');
 			} else {
@@ -67,6 +68,7 @@
 	}
 	function sendMsg() {
 		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
+		$("#testsocket").val('');
 	}
 	$(function () {
 		$("#message").hide();
@@ -87,7 +89,12 @@
 		});
 		socket.on('addChat', function (data) {
 			console.log(data);
-			var dom = $("<p></p>").text(data.text);
+			var dom = null;
+			if (data.name != $("#testpost").val()) {
+				dom = $("<p class='text-warning'></p>").text(data.text);
+			} else {
+				dom = $("<p class='t-r text-primary'></p>").text(data.text);
+			}
 			$("#chatView").append(dom)
 		});
 	});

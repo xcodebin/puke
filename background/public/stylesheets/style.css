@@ -11,6 +11,10 @@ a {
     text-align: center;
 }
 
+.t-r {
+    text-align: right;
+}
+
 .chatView {
     margin: 10px 0;
     border: 1px solid #62ff3a;
