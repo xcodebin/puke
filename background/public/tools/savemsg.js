@@ -33,7 +33,7 @@ function coverDate() {
 function save_msg(param, callback) {
 	var insertuser = sqlcmd.Insert({user: param.user, msg: param.msg, time: coverDate(), id: param.id}, 'chat');
 	sqlcmd.Doit(insertuser, (a, b) => {
-		console.info(a);
+		// console.info(a); //输出错误
 		if (a == null) {
 			var id = b.insertId;
 			callback({status: true, msg: id});

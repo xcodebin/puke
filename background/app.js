@@ -12,7 +12,7 @@ app.use(cors());//配置跨域
 
 var config = require('./public/tools/config');
 var cards = require('./model/card');
-var clisent = require("redis"), redis = clisent.createClient(config.redis.port, config.redis.host, config.redis.opts); //链接redis
+// var clisent = require("redis"), redis = clisent.createClient(config.redis.port, config.redis.host, config.redis.opts); // todo 链接redis
 
 var savemsg = require('./public/tools/savemsg');//链接mysql
 
@@ -24,7 +24,7 @@ io.on('connection', function (socket) {
 	console.info('a connecter connected');
 	socket.emit('to custom', {hello: 'world'});
 	socket.on('to server', function (data) {
-		console.log('Toserver', data);
+		// console.log('Toserver', data); //测试链接
 	});
 	socket.on('sendChat', function (data) {
 		var name = data.name;
