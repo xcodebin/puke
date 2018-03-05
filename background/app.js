@@ -29,7 +29,18 @@ io.on('connection', function (socket) {
 	socket.on('sendChat', function (data) {
 		var name = data.name;
 		if (name) {
-			io.emit('addChat', {name: name, text: name + '说:' + data.content});
+			var param = {
+				user: data.name,
+				id: data.content,
+				msg: data.content
+			};
+			console.log(param);
+			savemsg.save_msg(param, (res) => {
+				console.log(res);
+				if (res.status == true) {
+					io.emit('addChat', {name: name, text: name + '说:' + data.content});
+				}
+			});
 		}
 	});
 });
