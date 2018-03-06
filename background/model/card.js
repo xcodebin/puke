@@ -1,6 +1,6 @@
 var config = require('../public/tools/config');
 var clisent = require("redis")
-  , redis = clisent.createClient(config.redis.port, config.redis.host, config.redis.opts);
+  // , redis = clisent.createClient(config.redis.port, config.redis.host, config.redis.opts);
 
 var Suit = {
     "Spade": 1,   // 黑桃
