@@ -56,7 +56,7 @@
 			data: {name: name},
 			dataType: 'JSON'
 		}).then(function (res) {
-			if (res.state == 'success') {
+			if (res.status == '200') {
 				$("#name").hide();
 				$("#message").show();
 				$("#testsocket").focus();

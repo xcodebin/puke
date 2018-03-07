@@ -7,11 +7,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/name', function (req, res) {
-	res.send({state: 'success', name: req.body.name});
+	res.send({status: 200, name: req.body.name});
 });
 router.post('/code', function (req, res) {
 	// console.log(req.body);
-	res.send({state: 'success', code: 123});
+	res.send({status: 200, code: 123});
 });
 
 module.exports = router;

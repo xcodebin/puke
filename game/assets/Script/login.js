@@ -1,3 +1,4 @@
+var socket
 cc.Class({
     extends: cc.Component,
 
@@ -13,6 +14,9 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         // this.label.string = this.text;
+        window.socket.on('addChat', function (data) {
+			console.log(data);
+		});
     },
 
     // called every frame
