@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index'); //正常的post请求以及后台管理页面路由
+var userapi = require('./routes/userapi');
 var cors = require('cors');
 var app = express();
 app.use(cors());//配置跨域
@@ -57,7 +58,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-
+app.use('/userapi', userapi);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
