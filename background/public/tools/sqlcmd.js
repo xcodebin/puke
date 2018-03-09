@@ -88,6 +88,7 @@ function Doit(sql, callback) {
 		if (err) {
 			callback(err, null, null);
 		} else {
+			console.log(sql);
 			conn.query(sql, function (qerr, res, fields) {
 				//释放连接
 				conn.release();

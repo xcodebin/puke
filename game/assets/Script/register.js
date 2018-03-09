@@ -36,6 +36,7 @@ cc.Class({
 			default: null,
 			type: cc.Label
 		},
+		home: cc.Node,
 		loginContain: cc.Node,
 		registerContain: cc.Node,
 		back: cc.Node,
@@ -159,8 +160,8 @@ cc.Class({
 
 	},
 
-	backLogin: function () {
-		this.loginContain.active = true;
+	backHome: function () {
+		this.home.active = true;
 		this.registerContain.active = false;
 	}
 });
