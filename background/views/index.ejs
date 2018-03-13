@@ -1,104 +1,160 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title><%= title %></title>
-    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<head>
+	<title>
+		<%= title %>
+	</title>
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+
+	<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	 crossorigin="anonymous">
 
 </head>
+
 <body class="bg-success bg">
-<h2 class="t-c page-header title">Welcome to Xcodebin chat room <span id="title" class="text-success"></span></h2>
+	<h2 class="t-c page-header title">Welcome to Xcodebin chat room
+		<span id="title" class="text-success"></span>
+	</h2>
+	<div>
+		<div class="container">
+			<div class="t-c" id="name">
+				<div class="form-inline">
+					<div class="form-group">
+						<input class="form-control" type="text" id="testpost" placeholder="请告诉大家你是谁">
+					</div>
+					<button type="submit" class="btn btn-info" id="testpostBtn" title="post测试按钮">确定
+					</button>
+				</div>
+			</div>
 
-<div>
-    <div class="container">
-        <div class="t-c" id="name">
-            <div class="form-inline">
-                <div class="form-group">
-                    <input class="form-control" type="text" id="testpost" placeholder="请告诉大家你是谁">
-                </div>
-                <button type="submit" class="btn btn-info" id="testpostBtn" title="post测试按钮">确定
-                </button>
-            </div>
-        </div>
-
-        <div id="message" style="display: none">
-            <div id="chatView" class="chatView"></div>
-            <div class="input-group">
-                <input class="form-control" type="text" id="testsocket">
-                <span class="input-group-btn">
-                   <button type="button" class="btn btn-default" id="testsocketBtn" title="socket测试按钮">发送消息</button>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script>
-	var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
-	function postNameMsg() {
-		var name = $("#testpost").val();
-		if (!name) {
-			alert('请输入名字');
-			return;
+			<div id="message" style="display: none">
+				<div id="chatView" class="chatView"></div>
+				<div class="input-group">
+					<input class="form-control" type="text" id="testsocket">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" id="testsocketBtn" title="socket测试按钮">发送消息</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-horizontal bg-success t-c" action="/upload" enctype="multipart/form-data" style="display: inline-block;width:300px;height:150px;position:fixed;bottom:10px;"
+	 method="post">
+		<div class="form-group">
+			<label for="exampleInputFile">File input</label>
+			<input type="file" id="imgFile" name="myfile" style="display:inline-block">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-default" id="imgSubmit">提交</button>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<!-- <script src="https://cdn.bootcss.com/require.js/2.3.5/require.min.js"></script> -->
+	<script>
+		// console.log(img);
+		var socket = io.connect('http://xcodebins.tunnel.qydev.com');//socket test
+		function postNameMsg() {
+			var name = $("#imgFile").val();
+			if (!name) {
+				alert('请输入名字');
+				return;
+			}
+			$.ajax({
+				type: 'POST',
+				url: 'http://xcodebin.tunnel.qydev.com/name',
+				data: { name: name },
+				dataType: 'JSON'
+			}).then(function (res) {
+				if (res.status == '200') {
+					$("#name").hide();
+					$("#message").show();
+					$("#testsocket").focus();
+					$("#title").html($("#testpost").val());
+					alert('设置成功');
+				} else {
+					alert('失败')
+				}
+			})
 		}
-		$.ajax({
-			type: 'POST',
-			url: 'http://xcodebin.tunnel.qydev.com/name',
-			data: {name: name},
-			dataType: 'JSON'
-		}).then(function (res) {
-			if (res.status == '200') {
-				$("#name").hide();
-				$("#message").show();
-				$("#testsocket").focus();
-				$("#title").html($("#testpost").val());
-				alert('设置成功');
-			} else {
-				alert('失败')
+		function uploadImg() {
+			console.log($("#imgFile")[0].files[0])
+			var formdata = new FormData();
+			formdata.append("file", $("#imgFile")[0].files[0]);//获取文件法二
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://xcodebin.tunnel.qydev.com/upload", true);
+			xhr.setRequestHeader("Content-Type", false);
+			xhr.send(formdata);
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4 && (xhr.status >= 0 && xhr.status < 400)) {
+					var response = xhr.responseText;
+					console.log(response);
+				}
 			}
-		})
-	}
-	function sendMsg() {
-		socket.emit('sendChat', {name: $("#title").html(), content: $("#testsocket").val()});
-		$("#testsocket").val('');
-	}
-	$(function () {
-		$("#message").hide();
-		$("#testpost").keydown(function () {
-			if (event.keyCode == 13) {
-				postNameMsg();
-			}
+
+			
+			// var formdata = new FormData();
+			// formdata.append("file", $("#imgFile")[0].files[0]);//获取文件法二
+			// $.ajax({
+			// 	type: 'POST',
+			// 	url: 'http://xcodebin.tunnel.qydev.com/upload',
+			// 	dataType: 'JSON',
+			// 	data: formdata,
+			// 	contentType: false,
+			// 	processData:false,
+			// 	// mimeType:"multipart/form-data",
+			// }).then(function (res) {
+			// 	if (res.status == '200') {
+			// 		$("#name").hide();
+			// 		$("#message").show();
+			// 		$("#testsocket").focus();
+			// 		$("#title").html($("#testpost").val());
+			// 		alert('设置成功');
+			// 	} else {
+			// 		alert('失败')
+			// 	}
+			// })
+		}
+		function sendMsg() {
+			socket.emit('sendChat', { name: $("#title").html(), content: $("#testsocket").val() });
+			$("#testsocket").val('');
+		}
+		$(function () {
+			$("#message").hide();
+			$("#testpost").keydown(function () {
+				if (event.keyCode == 13) {
+					postNameMsg();
+				}
+			});
+			$("#testsocket").keydown(function () {
+				if (event.keyCode == 13) {
+					sendMsg();
+				}
+			});
+			$("#testpostBtn").on("click", postNameMsg);
+			$("#imgSubmit").on("click", uploadImg);
+			$("#testsocketBtn").on("click", sendMsg);
+			socket.on('to custom', function (data) {
+				socket.emit('to server', { my: 'data' });
+			});
+			socket.on('addChat', function (data) {
+				console.log(data);
+				var dom = null;
+				if (data.name != $("#testpost").val()) {
+					dom = $("<p class='text-warning'></p>").text(data.text);
+				} else {
+					dom = $("<p class='t-r text-primary'></p>").text(data.text);
+				}
+				$("#chatView").prepend(dom)
+			});
 		});
-		$("#testsocket").keydown(function () {
-			if (event.keyCode == 13) {
-				sendMsg();
-			}
-		});
-		$("#testpostBtn").on("click", postNameMsg);
-		$("#testsocketBtn").on("click", sendMsg);
-		socket.on('to custom', function (data) {
-			socket.emit('to server', {my: 'data'});
-		});
-		socket.on('addChat', function (data) {
-			console.log(data);
-			var dom = null;
-			if (data.name != $("#testpost").val()) {
-				dom = $("<p class='text-warning'></p>").text(data.text);
-			} else {
-				dom = $("<p class='t-r text-primary'></p>").text(data.text);
-			}
-			$("#chatView").prepend(dom)
-		});
-	});
-</script>
+	</script>
 </body>
+
 </html>
