@@ -11,7 +11,7 @@ var cors = require('cors');
 var app = express();
 app.use(cors({
 	"maxAge": 3600
-}));//配置跨域
+}));//配置跨域，配置时间，防止前端两次请求（option请求)。
 
 var config = require('./public/tools/config');
 var cards = require('./model/card');
