@@ -7,6 +7,7 @@ cc.Class({
       // window.io = require('./socket.io');
     }
     window.socket = io.connect('http://xcodebins.tunnel.qydev.com');
+    window.Global={};
   },
   // socket: function () {
   //   return window.io.connect('http://xcodebins.tunnel.qydev.com');

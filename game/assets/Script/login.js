@@ -19,11 +19,14 @@ cc.Class({
             type: cc.Label
         },
         back: cc.Node,
+        audioMng: cc.Node,
     },
 
     // use this for initialization
     onLoad: function () {
         // this.label.string = this.text;
+        this.audioMng = this.audioMng.getComponent('Audio');
+        this.audioMng.playHomeMusic();
         window.socket.on('addChat', function (data) {
             console.log(data);
         });
@@ -53,13 +56,14 @@ cc.Class({
                 console.log(response);
                 var a = JSON.parse(response);
                 if (a.status === 200) {
-                    cc.sys.localStorage.setItem("id", JSON.stringify(a.msg.id));
+                    cc.sys.localStorage.setItem("UserMessage", JSON.stringify(a.msg));
                     self.message.active = true;
                     self.messageLabel.string = '登录成功！';
                     var timeCallback = function () {
                         self.message.active = false;
                         self.loginContain.active = true;
                         self.registerContain.active = false;
+                        window.Global.to='Home';
                         cc.director.loadScene("loading")
                     }
                     self.schedule(timeCallback, 1.5, 0, 1.5);
